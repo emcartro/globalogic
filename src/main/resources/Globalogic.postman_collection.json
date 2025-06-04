@@ -1,0 +1,71 @@
+{
+	"info": {
+		"_postman_id": "19fc5f8c-3808-4f19-8052-115ee5dc20be",
+		"name": "Globalogic",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "12680337"
+	},
+	"item": [
+		{
+			"name": "/sign-up",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"Pedro Perez\",\r\n  \"email\": \"pedros22@gmail.com\",\r\n  \"password\": \"Password12\",\r\n  \"phones\": [\r\n    {\r\n      \"number\": 12345678,\r\n      \"citycode\": 1\r\n    \r\n    },\r\n    {\r\n      \"number\": 98765432,\r\n      \"citycode\": 2,\r\n      \"contrycode\": \"57\"\r\n    }\r\n  ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:7001/api/v1/sign-up",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7001",
+					"path": [
+						"api",
+						"v1",
+						"sign-up"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJwZWRyb3MyMkBnbWFpbC5jb20iLCJpYXQiOjE3NDg5Nzc4MDYsImV4cCI6MTc0ODk4MTQwNn0.GEXzoVtyJza93kiVugm4FcKfMXPBswV49BD5qWBZTkY",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:7001/api/v1/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7001",
+					"path": [
+						"api",
+						"v1",
+						"login"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

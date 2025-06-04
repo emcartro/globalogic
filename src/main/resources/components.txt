@@ -1,0 +1,26 @@
+flowchart TD
+   
+    subgraph Client["Client"]
+        C[Web/Mobile Client]:::client
+    end
+
+    subgraph Controller["Controller Layer"]
+        UC[UserController]:::controller
+    end
+
+    subgraph Service["Service Layer"]
+        US[UserService]:::service
+    end
+
+    subgraph Repository["Repository Layer"]
+        UR[UserRepository]:::repository
+    end
+
+    subgraph Utility["Utilities"]
+        JU[JwtUtil]:::utility
+    end
+
+    C -->|"HTTP Requests"| UC
+    UC -->|"Business Logic"| US
+    US -->|"DB Operations"| UR
+    US -->|"Authentication"| JU

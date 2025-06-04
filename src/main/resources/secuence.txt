@@ -1,0 +1,60 @@
+sequenceDiagram
+    actor Cliente
+    participant Ctrl as UsuarioController
+    participant Serv as UsuarioService
+    participant Repo as UsuarioRepository
+    participant Jwt as JwtUtil
+    
+    Note over Cliente,Jwt: Registro de Usuario Nuevo
+    
+    Cliente->>+Ctrl: POST /sign-up<br/>{nombre, email, contraseña, teléfonos}
+    
+    alt Email inválido
+        Ctrl-->>Cliente: 400 Bad Request<br/>{"error": [{"timestamp": "...",<br/>"codigo": 400,<br/>"detalle": "Email inválido"}]}
+    else Contraseña inválida
+        Ctrl-->>Cliente: 400 Bad Request<br/>{"error": [{"timestamp": "...",<br/>"codigo": 400,<br/>"detalle": "Contraseña inválida"}]}
+    else Usuario existente
+        Repo-->>Serv: Usuario encontrado
+        Serv-->>Ctrl: UsuarioYaExisteException
+        Ctrl-->>Cliente: 409 Conflict<br/>{"error": [{"timestamp": "...",<br/>"codigo": 409,<br/>"detalle": "Usuario ya existe"}]}
+    else Datos válidos
+        Ctrl->>+Serv: registrarUsuario(dto)
+        
+        Serv->>+Repo: findByEmail(email)
+        Repo-->>-Serv: usuario
+        
+        Serv->>Serv: validarEmail(email)
+        Serv->>Serv: validarContrasena(contrasena)
+        
+        Serv->>+Repo: save(usuario)
+        Repo-->>-Serv: usuarioGuardado
+        
+        Serv->>+Jwt: generarToken(email)
+        Jwt-->>-Serv: token
+        
+        Serv-->>-Ctrl: UsuarioResponse
+        Ctrl-->>-Cliente: 201 Created<br/>UsuarioResponse con token JWT
+    end
+    
+    Note over Cliente,Jwt: Login Existoso
+    
+    Cliente->>+Ctrl: POST /login<br/>{email, contraseña}
+    
+    alt Datos inválidos
+        Ctrl-->>Cliente: 400 Bad Request<br/>{"error": [{"timestamp": "...",<br/>"codigo": 400,<br/>"detalle": "Datos inválidos"}]}
+    else Token inválido
+        Ctrl-->>Cliente: 401 Unauthorized<br/>{"error": [{"timestamp": "...",<br/>"codigo": 401,<br/>"detalle": "Token inválido"}]}
+    else Login exitoso
+        Ctrl->>+Serv: obtenerUsuarioPorToken(token)
+        
+        Serv->>+Repo: findByEmail(email)
+        Repo-->>-Serv: usuario
+        
+        Serv->>Serv: actualizarUltimoInicioSesion()
+        
+        Serv->>+Jwt: generarNuevoToken(email)
+        Jwt-->>-Serv: nuevoToken
+        
+        Serv-->>-Ctrl: UsuarioResponse
+        Ctrl-->>-Cliente: 200 OK<br/>UsuarioResponse con nuevo token
+    end
