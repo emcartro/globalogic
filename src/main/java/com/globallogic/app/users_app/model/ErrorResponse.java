@@ -14,12 +14,12 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 public class ErrorResponse {
-    private List<ErrorDetail> error; // Matches "error": [...]
+    private List<ErrorDetail> error;
 
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    @Builder // For consistency
+    @Builder
     public static class ErrorDetail {
         private LocalDateTime timestamp;
         private Integer codigo;

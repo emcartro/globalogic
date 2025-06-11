@@ -35,5 +35,33 @@ package com.globallogic.app.users_app.adapter;
             assertTrue(user.getPhones().isEmpty());
         }
 
+        @Test
+        @DisplayName("toResponseWithToken should map User to UserResponse with provided token")
+        void toResponseWithTokenShouldMapUserToUserResponseWithProvidedToken() {
+            User user = User.builder()
+                    .id(UUID.randomUUID())
+                    .created(Instant.now())
+                    .lastLogin(Instant.now())
+                    .isActive(true)
+                    .name("John Doe")
+                    .email("john.doe@example.com")
+                    .password("password123")
+                    .build();
+            String token = "sampleToken";
+
+            UserResponse response = userAdapter.toResponseWithToken(user, token);
+
+            assertEquals(user.getId(), response.getId());
+            assertEquals(user.getCreated(), response.getCreated());
+            assertEquals(user.getLastLogin(), response.getLastLogin());
+            assertEquals(token, response.getToken());
+            assertEquals(user.isActive(), response.isActive());
+            assertEquals(user.getName(), response.getName());
+            assertEquals(user.getEmail(), response.getEmail());
+            assertEquals(user.getPassword(), response.getPassword());
+
+        }
+
+
 
     }

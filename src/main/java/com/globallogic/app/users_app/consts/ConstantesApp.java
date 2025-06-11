@@ -19,18 +19,11 @@ public class ConstantesApp {
 	public static final String ACCEPT_LENGUAJE = "Accept-Language";
 	public static final String API_APP="/api/users";
 
-	public static final String HEADER_AUTHORIZATION=AUTHORIZATION;
-	public static final String HEADER_ORIGIN="Origin";
-	public static final String HEADER_ACCEPT_LENGUAJE = ACCEPT_LENGUAJE;
-	public static final String HEADER_TRACE_CODE="Trace-Code";
-	public static final String HEADER_REFERER="Referer";
+
 	public static final String ENCODING_UTF8 = "UTF-8";
 	public static final String CONTENT_TYPE_JSON = "application/json";
 	public static final String CONTENT_TYPE_JSON_UTF8 = "application/json;charset="+ENCODING_UTF8;
 	public static final String TIMEZONE_UTC = "UTC";
-	public static final String LOCALE_DEFAULT = "es";
-	public static final String LOCALE_DEFAULT_CO = LOCALE_DEFAULT+"_CO";
-	public static final String LOCALE_DEFAULT_CO_HEADER = LOCALE_DEFAULT+"-CO";
 	public static final String SWAGGER_PATH = "swagger-ui";
 	public static final String SWAGGER_PATH_V3 = "v1/api-docs";
 	public static final String TOKEN_TYPE = "token_type";

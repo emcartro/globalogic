@@ -12,14 +12,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@AllArgsConstructor
+
 @NoArgsConstructor
 @Data
-@Builder
 @Entity
 @Table(name = "phone")
-@EqualsAndHashCode(callSuper = false)
-@ToString
 public class Phone {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

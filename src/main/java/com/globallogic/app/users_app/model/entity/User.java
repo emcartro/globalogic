@@ -26,8 +26,6 @@ import java.util.UUID;
 @Builder
 @Entity
 @Table(name = "user")
-@EqualsAndHashCode(callSuper = false)
-@ToString
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
